@@ -33,6 +33,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Types of jokes'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, 'jokeOfTheDay');
+            },
+            icon: const Icon(Icons.airline_stops_rounded),
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

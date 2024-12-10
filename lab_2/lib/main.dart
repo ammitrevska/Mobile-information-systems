@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lab_2/screens/home_screen.dart';
+import 'package:lab_2/screens/joke_of_day.dart';
 import 'package:lab_2/screens/jokes_screen.dart';
 
 void main() {
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
               ModalRoute.of(context)?.settings.arguments as String;
           return JokesScreen(type: type);
         },
+        'jokeOfTheDay': (context) {
+          return const JokeOfDay();
+        }
       },
     );
   }

@@ -30,12 +30,12 @@ class ApiService {
 
   static Future<Joke> getJokeOfTheDay() async {
     try {
-      var service = 'https://official-joke-аpi.appspot.com/random_joke';
+      var service = 'https://official-joke-api.appspot.com/random_joke';
       var response = await http.get(Uri.parse(service));
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        return data.map((json) => Joke.fromJson(json));
+        return Joke.fromJson(data);
       } else {
         return Joke(type: '', setup: '', punchline: '');
       }
