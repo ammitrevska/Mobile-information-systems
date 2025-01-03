@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:lab_2/provider/favorites_provider.dart';
+import 'package:lab_2/screens/fave_jokes_screen.dart';
 import 'package:lab_2/screens/home_screen.dart';
 import 'package:lab_2/screens/joke_of_day.dart';
 import 'package:lab_2/screens/jokes_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => FavoriteProvider(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -37,6 +49,9 @@ class MyApp extends StatelessWidget {
         },
         'jokeOfTheDay': (context) {
           return const JokeOfDay();
+        },
+        'favoritesScreen': (context) {
+          return const FaveJokesScreen();
         }
       },
     );

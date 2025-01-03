@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
       var data = List.from(json.decode(response.body));
       setState(() {
         types = data.map((type) => type.toString()).toList();
+        types.add('favourite');
       });
     });
   }
@@ -56,7 +57,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 tileColor: const Color(0xFF4A314D),
                 textColor: Colors.white,
                 onTap: () {
-                  Navigator.pushNamed(context, "jokesScreen", arguments: type);
+                  if (type == 'favourite') {
+                    Navigator.pushNamed(context, 'favoritesScreen');
+                  } else {
+                    Navigator.pushNamed(context, 'jokesScreen',
+                        arguments: type);
+                  }
                 },
               ),
             );
