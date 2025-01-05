@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:lab_2/firebase/firebase_api.dart';
 import 'package:lab_2/provider/favorites_provider.dart';
 import 'package:lab_2/screens/fave_jokes_screen.dart';
 import 'package:lab_2/screens/home_screen.dart';
 import 'package:lab_2/screens/joke_of_day.dart';
 import 'package:lab_2/screens/jokes_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseApi().initNotifications();
   runApp(
     MultiProvider(
       providers: [
@@ -41,6 +52,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const HomeScreen(),
+      navigatorKey: navigatorKey,
       routes: {
         'jokesScreen': (context) {
           final String type =
