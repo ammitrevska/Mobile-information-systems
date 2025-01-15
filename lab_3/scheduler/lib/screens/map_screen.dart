@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:scheduler/models/exam.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MapScreen extends StatefulWidget {
   final Exam exam;
@@ -65,8 +66,33 @@ class _MapScreenState extends State<MapScreen> {
               )
             ],
           ),
+          Positioned(
+            bottom: 16.0,
+            right: 16.0,
+            child: ElevatedButton(
+              onPressed: () {
+                launchGoogleMaps(
+                  widget.exam.building.latitute,
+                  widget.exam.building.longitute,
+                );
+              },
+              child: const Text('Navigate to Pin'),
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  Future<void> launchGoogleMaps(double latitude, double longitude) async {
+    final urlString =
+        'https://www.google.com/maps/dir/?api=1&destination=$latitude,$longitude'; // String URL
+    final uri = Uri.parse(urlString); // Convert string to Uri object
+    if (await canLaunchUrl(uri)) {
+      // Use Uri object with canLaunchUrl
+      await launchUrl(uri); // Use Uri object with launchUrl
+    } else {
+      throw 'Could not launch ${uri.toString()}'; // Use Uri object in error message
+    }
   }
 }
