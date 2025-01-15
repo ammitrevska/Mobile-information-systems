@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scheduler/models/exam.dart';
 import 'package:scheduler/screens/add_exam_screen.dart';
+import 'package:scheduler/screens/all_events_map_screen.dart';
 import 'package:scheduler/screens/map_screen.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -39,6 +40,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void _navigateToAllEventsMap() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AllEventsMapScreen(exams: _exams),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final filteredExams = _exams
@@ -47,8 +57,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Exam scheduler'),
+        title: const Text('Exam Scheduler'),
         actions: [
+          IconButton(
+            onPressed: () => _navigateToAllEventsMap(),
+            icon: const Icon(Icons.map),
+          ),
           IconButton.filled(
             onPressed: () => _navigateToAddExam(),
             icon: const Icon(
