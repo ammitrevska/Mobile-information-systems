@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_background_geolocation/flutter_background_geolocation.dart'
+    as bg;
 import 'package:scheduler/models/exam.dart';
 import 'package:scheduler/screens/add_exam_screen.dart';
 import 'package:scheduler/screens/all_events_map_screen.dart';
@@ -16,6 +18,22 @@ class _HomeScreenState extends State<HomeScreen> {
   DateTime _selectedDate = DateTime.now();
   final List<Exam> _exams = [];
 
+  void addGeofenceForExam(Exam exam) {
+    bg.BackgroundGeolocation.addGeofence(bg.Geofence(
+      identifier: exam.name,
+      radius: 100, // Radius in meters
+      latitude: exam.building.latitute,
+      longitude: exam.building.longitute,
+      notifyOnEntry: true,
+      notifyOnExit: false,
+      notifyOnDwell: false,
+    )).then((_) {
+      print("Geofence added for ${exam.name}");
+    }).catchError((error) {
+      print("Failed to add geofence: $error");
+    });
+  }
+
   void _navigateToAddExam() async {
     final result = await Navigator.push(
       context,
@@ -28,6 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         _exams.add(result);
       });
+
+      // Add geofence for this exam
+      addGeofenceForExam(result);
     }
   }
 

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:scheduler/screens/home_screen.dart';
+import 'package:scheduler/widgets/notifications.dart';
 
 void main() {
   runApp(const MyApp());
+  setupGeofenceNotifications();
 }
 
 class MyApp extends StatelessWidget {

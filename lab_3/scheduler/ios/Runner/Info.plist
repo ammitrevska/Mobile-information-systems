@@ -10,6 +10,16 @@
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Reason why we need access to your location</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need your location to set reminders for exams.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need your location to set reminders for exams.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+  		<string>location</string>
+  		<string>fetch</string>
+	</array>
+
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
